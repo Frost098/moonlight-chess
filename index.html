@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Moonlight Chess</title></head>
-<body style="background:#0a0a1a;color:#ffd700;font-family:system-ui;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0">
-<div>Loading Moonlight Chess…</div>
+<!DOCTYPE html><html><head><meta charset=UTF-8><title>Moonlight Chess</title></head>
+<body style="margin:0;background:#0a0a1a;color:#ffd700;font-family:system-ui;min-height:100vh;display:flex;align-items:center;justify-content:center"><div id=s>Loading…</div>
 <script>
-(async () => {
-  const n = 5;
-  let html = '';
-  for (let i = 0; i < n; i++) {
-    const r = await fetch('part' + i + '.txt');
-    html += await r.text();
-  }
-  document.open();
-  document.write(html);
-  document.close();
-})().catch(e => { document.body.textContent = 'Load failed: ' + e; });
-</script>
-</body></html>
+(async()=>{
+  const n=15;
+  let b64='';
+  for(let i=0;i<n;i++){b64+=await(await fetch('b64p'+i+'.txt')).text();}
+  const bin=atob(b64);const u=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+  const html=new TextDecoder().decode(u);
+  document.open();document.write(html);document.close();
+})().catch(e=>{document.getElementById('s').textContent=String(e)});
+</script></body></html>
