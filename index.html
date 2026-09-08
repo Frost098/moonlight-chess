@@ -5,9 +5,9 @@
 <script>
 (async () => {
   try {
-    const n = 4;
+    const n = 6;
     let B64 = "";
-    for (let i = 0; i < n; i++) B64 += await (await fetch("gz" + i + ".txt")).text();
+    for (let i = 0; i < n; i++) B64 += await (await fetch("c" + i + ".txt")).text();
     const bin = atob(B64);
     const bytes = new Uint8Array(bin.length);
     for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
