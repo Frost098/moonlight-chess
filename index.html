@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Moonlight Chess</title></head>
+<body style="background:#0a0a1a;color:#ffd700;font-family:system-ui;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0">
+<div>Loading Moonlight Chess…</div>
+<script>
+(async () => {
+  const n = 5;
+  let html = '';
+  for (let i = 0; i < n; i++) {
+    const r = await fetch('part' + i + '.txt');
+    html += await r.text();
+  }
+  document.open();
+  document.write(html);
+  document.close();
+})().catch(e => { document.body.textContent = 'Load failed: ' + e; });
+</script>
+</body></html>
