@@ -1,13 +1,25 @@
-<!DOCTYPE html><html><head><meta charset=UTF-8><title>Moonlight Chess</title></head>
-<body style="margin:0;background:#0a0a1a;color:#ffd700;font-family:system-ui;min-height:100vh;display:flex;align-items:center;justify-content:center"><div id=s>Loading…</div>
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Moonlight Chess</title></head>
+<body style="margin:0;background:#0a0a1a;color:#ffd700;font-family:system-ui;min-height:100vh;display:flex;align-items:center;justify-content:center">
+<div id="s">Loading Moonlight Chess…</div>
 <script>
-(async()=>{
-  const n=15;
-  let b64='';
-  for(let i=0;i<n;i++){b64+=await(await fetch('b64p'+i+'.txt')).text();}
-  const bin=atob(b64);const u=new Uint8Array(bin.length);
-  for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
-  const html=new TextDecoder().decode(u);
-  document.open();document.write(html);document.close();
-})().catch(e=>{document.getElementById('s').textContent=String(e)});
-</script></body></html>
+(async () => {
+  try {
+    const n = 4;
+    let B64 = "";
+    for (let i = 0; i < n; i++) B64 += await (await fetch("gz" + i + ".txt")).text();
+    const bin = atob(B64);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    const ds = new DecompressionStream("gzip");
+    const stream = new Response(bytes).body.pipeThrough(ds);
+    const html = await new Response(stream).text();
+    document.open();
+    document.write(html);
+    document.close();
+  } catch (e) {
+    document.getElementById("s").textContent = "Gagal: " + e;
+  }
+})();
+</script>
+</body></html>
