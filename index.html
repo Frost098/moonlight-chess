@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Moonlight Chess</title></head>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Moonlight Chess Arena</title></head>
 <body style="margin:0;background:#0a0a1a;color:#ffd700;font-family:system-ui;min-height:100vh;display:flex;align-items:center;justify-content:center">
 <div id="s">Loading Moonlight Chess…</div>
 <script>
 (async () => {
   try {
-    const n = 6;
+    const n = 2;
     let B64 = "";
     for (let i = 0; i < n; i++) B64 += await (await fetch("c" + i + ".txt")).text();
     const bin = atob(B64);
@@ -18,7 +18,7 @@
     document.write(html);
     document.close();
   } catch (e) {
-    document.getElementById("s").textContent = "Gagal: " + e;
+    document.getElementById("s").textContent = "Gagal load: " + e;
   }
 })();
 </script>
